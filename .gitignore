@@ -1,6 +1,6 @@
-model.keras
-scaler.pkl
+*.keras
+*.pkl
+*.joblib
 *.csv
-predict_pb2*.py
 __pycache__/
 expected_columns.txt

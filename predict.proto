@@ -2,6 +2,7 @@ syntax = "proto3";
 
 service WaterQualityService {
   rpc Predict(PredictReq) returns (PredictResp) {}
+  rpc GuessLevel(Quality) returns (GuessLevelResp) {}
 }
 
 message Quality {
@@ -17,3 +18,5 @@ message PredictReq {
 }
 
 message PredictResp { repeated Quality qualities = 1; }
+
+message GuessLevelResp { int64 level = 1; }
