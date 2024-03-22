@@ -4,7 +4,7 @@ import pandas as pd
 import utils
 from random import randint
 
-with grpc.insecure_channel("localhost:50051") as channel:
+with grpc.insecure_channel("localhost:19000") as channel:
     stub = predict_pb2_grpc.WaterQualityServiceStub(channel)
     df = pd.read_csv("water_quality.csv")
 
