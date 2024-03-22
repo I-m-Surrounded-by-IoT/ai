@@ -1,10 +1,10 @@
-import predict_pb2
+import waterquality_pb2
 import pandas as pd
 import numpy as np
 
 
 def df2quality(data):
-    return predict_pb2.Quality(
+    return waterquality_pb2.Quality(
         timestamp=int(pd.to_datetime(data["date"]).timestamp()),
         temperature=data["temperature"],
         ph=data["ph"],

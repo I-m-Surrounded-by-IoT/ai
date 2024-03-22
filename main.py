@@ -1,8 +1,8 @@
 import json
 from os import environ
 import uuid
-import predict_pb2_grpc
-import predict_pb2
+import waterquality_pb2_grpc
+import waterquality_pb2
 import grpc
 import predict.guess as predict_guess
 import level.guess as level_guess
@@ -15,7 +15,7 @@ from typing import List, Dict
 from dataclasses import asdict
 
 
-class Predictor(predict_pb2_grpc.WaterQualityServiceServicer):
+class Predictor(waterquality_pb2_grpc.WaterQualityServiceServicer):
     def __init__(self, model_path, scaler_path, level_model_path):
         self.predictor = predict_guess.Predictor(model_path, scaler_path)
         self.level_guesser = level_guess.Predictor(level_model_path)
@@ -25,12 +25,12 @@ class Predictor(predict_pb2_grpc.WaterQualityServiceServicer):
         look_back = request.look_back
         horizon = request.horizon
         predictions = self.predictor.predict(df, look_back, horizon)
-        return predict_pb2.PredictResp(qualities=utils.df2qualitys(predictions))
+        return waterquality_pb2.PredictResp(qualities=utils.df2qualitys(predictions))
 
     def GuessLevel(self, request, context):
         df = utils.quality2df(request)
         prediction = self.level_guesser.predict(df)
-        return predict_pb2.GuessLevelResp(level=prediction)
+        return waterquality_pb2.GuessLevelResp(level=prediction)
 
 
 @dataclass
@@ -81,7 +81,7 @@ def init_config():
 if __name__ == "__main__":
     config = init_config()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    predict_pb2_grpc.add_WaterQualityServiceServicer_to_server(
+    waterquality_pb2_grpc.add_WaterQualityServiceServicer_to_server(
         Predictor("model.keras", "scaler.pkl", "water_quality_level.joblib"), server
     )
     server.add_insecure_port(f"{config['host']}:{config['port']}")

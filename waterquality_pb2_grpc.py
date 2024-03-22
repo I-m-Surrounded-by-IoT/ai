@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import predict_pb2 as predict__pb2
+import waterquality_pb2 as waterquality__pb2
 
 
 class WaterQualityServiceStub(object):
@@ -16,13 +16,13 @@ class WaterQualityServiceStub(object):
         """
         self.Predict = channel.unary_unary(
                 '/WaterQualityService/Predict',
-                request_serializer=predict__pb2.PredictReq.SerializeToString,
-                response_deserializer=predict__pb2.PredictResp.FromString,
+                request_serializer=waterquality__pb2.PredictReq.SerializeToString,
+                response_deserializer=waterquality__pb2.PredictResp.FromString,
                 )
         self.GuessLevel = channel.unary_unary(
                 '/WaterQualityService/GuessLevel',
-                request_serializer=predict__pb2.Quality.SerializeToString,
-                response_deserializer=predict__pb2.GuessLevelResp.FromString,
+                request_serializer=waterquality__pb2.Quality.SerializeToString,
+                response_deserializer=waterquality__pb2.GuessLevelResp.FromString,
                 )
 
 
@@ -46,13 +46,13 @@ def add_WaterQualityServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Predict': grpc.unary_unary_rpc_method_handler(
                     servicer.Predict,
-                    request_deserializer=predict__pb2.PredictReq.FromString,
-                    response_serializer=predict__pb2.PredictResp.SerializeToString,
+                    request_deserializer=waterquality__pb2.PredictReq.FromString,
+                    response_serializer=waterquality__pb2.PredictResp.SerializeToString,
             ),
             'GuessLevel': grpc.unary_unary_rpc_method_handler(
                     servicer.GuessLevel,
-                    request_deserializer=predict__pb2.Quality.FromString,
-                    response_serializer=predict__pb2.GuessLevelResp.SerializeToString,
+                    request_deserializer=waterquality__pb2.Quality.FromString,
+                    response_serializer=waterquality__pb2.GuessLevelResp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -76,8 +76,8 @@ class WaterQualityService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/WaterQualityService/Predict',
-            predict__pb2.PredictReq.SerializeToString,
-            predict__pb2.PredictResp.FromString,
+            waterquality__pb2.PredictReq.SerializeToString,
+            waterquality__pb2.PredictResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -93,7 +93,7 @@ class WaterQualityService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/WaterQualityService/GuessLevel',
-            predict__pb2.Quality.SerializeToString,
-            predict__pb2.GuessLevelResp.FromString,
+            waterquality__pb2.Quality.SerializeToString,
+            waterquality__pb2.GuessLevelResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
