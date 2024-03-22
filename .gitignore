@@ -3,4 +3,5 @@
 *.joblib
 *.csv
 __pycache__/
-expected_columns.txt
+*.txt
+*.local
