@@ -15,14 +15,19 @@ class WaterQualityServiceStub(object):
             channel: A grpc.Channel.
         """
         self.Predict = channel.unary_unary(
-                '/WaterQualityService/Predict',
+                '/api.waterquality.WaterQualityService/Predict',
                 request_serializer=waterquality__pb2.PredictReq.SerializeToString,
                 response_deserializer=waterquality__pb2.PredictResp.FromString,
                 )
         self.GuessLevel = channel.unary_unary(
-                '/WaterQualityService/GuessLevel',
+                '/api.waterquality.WaterQualityService/GuessLevel',
                 request_serializer=waterquality__pb2.Quality.SerializeToString,
                 response_deserializer=waterquality__pb2.GuessLevelResp.FromString,
+                )
+        self.PredictAndGuess = channel.unary_unary(
+                '/api.waterquality.WaterQualityService/PredictAndGuess',
+                request_serializer=waterquality__pb2.PredictAndGuessReq.SerializeToString,
+                response_deserializer=waterquality__pb2.PredictAndGuessResp.FromString,
                 )
 
 
@@ -41,6 +46,12 @@ class WaterQualityServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PredictAndGuess(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_WaterQualityServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -54,9 +65,14 @@ def add_WaterQualityServiceServicer_to_server(servicer, server):
                     request_deserializer=waterquality__pb2.Quality.FromString,
                     response_serializer=waterquality__pb2.GuessLevelResp.SerializeToString,
             ),
+            'PredictAndGuess': grpc.unary_unary_rpc_method_handler(
+                    servicer.PredictAndGuess,
+                    request_deserializer=waterquality__pb2.PredictAndGuessReq.FromString,
+                    response_serializer=waterquality__pb2.PredictAndGuessResp.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'WaterQualityService', rpc_method_handlers)
+            'api.waterquality.WaterQualityService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -75,7 +91,7 @@ class WaterQualityService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/WaterQualityService/Predict',
+        return grpc.experimental.unary_unary(request, target, '/api.waterquality.WaterQualityService/Predict',
             waterquality__pb2.PredictReq.SerializeToString,
             waterquality__pb2.PredictResp.FromString,
             options, channel_credentials,
@@ -92,8 +108,25 @@ class WaterQualityService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/WaterQualityService/GuessLevel',
+        return grpc.experimental.unary_unary(request, target, '/api.waterquality.WaterQualityService/GuessLevel',
             waterquality__pb2.Quality.SerializeToString,
             waterquality__pb2.GuessLevelResp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PredictAndGuess(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.waterquality.WaterQualityService/PredictAndGuess',
+            waterquality__pb2.PredictAndGuessReq.SerializeToString,
+            waterquality__pb2.PredictAndGuessResp.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

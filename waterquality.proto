@@ -1,14 +1,28 @@
 syntax = "proto3";
 
+package api.waterquality;
+
+option go_package = "github.com/I-m-Surrounded-by-IoT/backend/api/waterquality;waterquality";
+
 service WaterQualityService {
   rpc Predict(PredictReq) returns (PredictResp) {}
   rpc GuessLevel(Quality) returns (GuessLevelResp) {}
+  rpc PredictAndGuess(PredictAndGuessReq) returns (PredictAndGuessResp) {}
+}
+
+message GeoPoint {
+  double lat = 1; // @gotags: json:"lat"
+  double lon = 2; // @gotags: json:"lon"
 }
 
 message Quality {
-  int64 timestamp = 1;
-  float temperature = 2;
-  float ph = 3;
+  int64 timestamp = 1;    // @gotags: json:"timestamp"
+  GeoPoint geo_point = 2; // @gotags: json:"geoPoint"
+  float temperature = 3;  // @gotags: json:"temperature"
+  float ph = 4;           // @gotags: json:"ph"
+  float tsw = 5;          // @gotags: json:"tsw"
+  float tds = 6;          // @gotags: json:"tds"
+  float oxygen = 7;       // @gotags: json:"oxygen"
 }
 
 message PredictReq {
@@ -20,3 +34,14 @@ message PredictReq {
 message PredictResp { repeated Quality qualities = 1; }
 
 message GuessLevelResp { int64 level = 1; }
+
+message PredictAndGuessReq {
+  repeated Quality qualities = 1;
+  int64 look_back = 2;
+  int64 horizon = 3;
+}
+
+message PredictAndGuessResp {
+  repeated Quality qualities = 1;
+  repeated int64 level = 2;
+}

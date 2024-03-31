@@ -14,21 +14,28 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12waterquality.proto\"=\n\x07Quality\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12\x13\n\x0btemperature\x18\x02 \x01(\x02\x12\n\n\x02ph\x18\x03 \x01(\x02\"M\n\nPredictReq\x12\x1b\n\tqualities\x18\x01 \x03(\x0b\x32\x08.Quality\x12\x11\n\tlook_back\x18\x02 \x01(\x03\x12\x0f\n\x07horizon\x18\x03 \x01(\x03\"*\n\x0bPredictResp\x12\x1b\n\tqualities\x18\x01 \x03(\x0b\x32\x08.Quality\"\x1f\n\x0eGuessLevelResp\x12\r\n\x05level\x18\x01 \x01(\x03\x32h\n\x13WaterQualityService\x12&\n\x07Predict\x12\x0b.PredictReq\x1a\x0c.PredictResp\"\x00\x12)\n\nGuessLevel\x12\x08.Quality\x1a\x0f.GuessLevelResp\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12waterquality.proto\x12\x10\x61pi.waterquality\"$\n\x08GeoPoint\x12\x0b\n\x03lat\x18\x01 \x01(\x01\x12\x0b\n\x03lon\x18\x02 \x01(\x01\"\x96\x01\n\x07Quality\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12-\n\tgeo_point\x18\x02 \x01(\x0b\x32\x1a.api.waterquality.GeoPoint\x12\x13\n\x0btemperature\x18\x03 \x01(\x02\x12\n\n\x02ph\x18\x04 \x01(\x02\x12\x0b\n\x03tsw\x18\x05 \x01(\x02\x12\x0b\n\x03tds\x18\x06 \x01(\x02\x12\x0e\n\x06oxygen\x18\x07 \x01(\x02\"^\n\nPredictReq\x12,\n\tqualities\x18\x01 \x03(\x0b\x32\x19.api.waterquality.Quality\x12\x11\n\tlook_back\x18\x02 \x01(\x03\x12\x0f\n\x07horizon\x18\x03 \x01(\x03\";\n\x0bPredictResp\x12,\n\tqualities\x18\x01 \x03(\x0b\x32\x19.api.waterquality.Quality\"\x1f\n\x0eGuessLevelResp\x12\r\n\x05level\x18\x01 \x01(\x03\"f\n\x12PredictAndGuessReq\x12,\n\tqualities\x18\x01 \x03(\x0b\x32\x19.api.waterquality.Quality\x12\x11\n\tlook_back\x18\x02 \x01(\x03\x12\x0f\n\x07horizon\x18\x03 \x01(\x03\"R\n\x13PredictAndGuessResp\x12,\n\tqualities\x18\x01 \x03(\x0b\x32\x19.api.waterquality.Quality\x12\r\n\x05level\x18\x02 \x03(\x03\x32\x8e\x02\n\x13WaterQualityService\x12H\n\x07Predict\x12\x1c.api.waterquality.PredictReq\x1a\x1d.api.waterquality.PredictResp\"\x00\x12K\n\nGuessLevel\x12\x19.api.waterquality.Quality\x1a .api.waterquality.GuessLevelResp\"\x00\x12`\n\x0fPredictAndGuess\x12$.api.waterquality.PredictAndGuessReq\x1a%.api.waterquality.PredictAndGuessResp\"\x00\x42HZFgithub.com/I-m-Surrounded-by-IoT/backend/api/waterquality;waterqualityb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'waterquality_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-  DESCRIPTOR._options = None
-  _globals['_QUALITY']._serialized_start=22
-  _globals['_QUALITY']._serialized_end=83
-  _globals['_PREDICTREQ']._serialized_start=85
-  _globals['_PREDICTREQ']._serialized_end=162
-  _globals['_PREDICTRESP']._serialized_start=164
-  _globals['_PREDICTRESP']._serialized_end=206
-  _globals['_GUESSLEVELRESP']._serialized_start=208
-  _globals['_GUESSLEVELRESP']._serialized_end=239
-  _globals['_WATERQUALITYSERVICE']._serialized_start=241
-  _globals['_WATERQUALITYSERVICE']._serialized_end=345
+  _globals['DESCRIPTOR']._options = None
+  _globals['DESCRIPTOR']._serialized_options = b'ZFgithub.com/I-m-Surrounded-by-IoT/backend/api/waterquality;waterquality'
+  _globals['_GEOPOINT']._serialized_start=40
+  _globals['_GEOPOINT']._serialized_end=76
+  _globals['_QUALITY']._serialized_start=79
+  _globals['_QUALITY']._serialized_end=229
+  _globals['_PREDICTREQ']._serialized_start=231
+  _globals['_PREDICTREQ']._serialized_end=325
+  _globals['_PREDICTRESP']._serialized_start=327
+  _globals['_PREDICTRESP']._serialized_end=386
+  _globals['_GUESSLEVELRESP']._serialized_start=388
+  _globals['_GUESSLEVELRESP']._serialized_end=419
+  _globals['_PREDICTANDGUESSREQ']._serialized_start=421
+  _globals['_PREDICTANDGUESSREQ']._serialized_end=523
+  _globals['_PREDICTANDGUESSRESP']._serialized_start=525
+  _globals['_PREDICTANDGUESSRESP']._serialized_end=607
+  _globals['_WATERQUALITYSERVICE']._serialized_start=610
+  _globals['_WATERQUALITYSERVICE']._serialized_end=880
 # @@protoc_insertion_point(module_scope)
