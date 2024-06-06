@@ -1,6 +1,6 @@
-FROM python:3.12-alpine
+FROM python:3.9-bookworm
 
-RUN apk add --no-cache g++
+RUN apt update && apt install -y gcc
 
 COPY ./ ./
 
