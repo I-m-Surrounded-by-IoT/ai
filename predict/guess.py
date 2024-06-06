@@ -72,8 +72,6 @@ if __name__ == "__main__":
     # 加载数据
     data = pd.read_csv("newdata.csv")
 
-    # print(data)
-
     predictor = Predictor("model.keras", "scaler.pkl")
 
     look_back = 3

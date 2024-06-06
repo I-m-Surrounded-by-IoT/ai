@@ -1,11 +1,10 @@
 import waterquality_pb2
 import pandas as pd
-import numpy as np
 
 
 def df2quality(data):
     return waterquality_pb2.Quality(
-        timestamp=int(pd.to_datetime(data["date"]).timestamp()),
+        timestamp=int(pd.to_datetime(data["date"]).timestamp() * 1000),
         temperature=data["temperature"],
         ph=data["ph"],
     )
@@ -24,7 +23,7 @@ def quality2obj(quality, withDate=False):
         "ph": quality.ph,
     }
     if withDate:
-        obj["date"] = pd.to_datetime(quality.timestamp, unit="s")
+        obj["date"] = pd.to_datetime(quality.timestamp, unit="ms")
     return obj
 
 

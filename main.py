@@ -28,9 +28,21 @@ class Predictor(waterquality_pb2_grpc.WaterQualityServiceServicer):
         return waterquality_pb2.PredictResp(qualities=utils.df2qualitys(predictions))
 
     def GuessLevel(self, request, context):
-        df = utils.quality2df(request)
-        prediction = self.level_guesser.predict(df)
+        prediction = self.level_guesser.predict(utils.quality2df(request))
         return waterquality_pb2.GuessLevelResp(level=prediction)
+
+    def PredictAndGuess(self, request, context):
+        df = utils.qualitys2df(request.qualities, withDate=True)
+        look_back = request.look_back
+        horizon = request.horizon
+        predictions = self.predictor.predict(df, look_back, horizon)
+        levels = []
+        for quality in utils.df2qualitys(predictions):
+            level = self.level_guesser.predict(utils.quality2df(quality))
+            levels.append(level)
+        return waterquality_pb2.PredictAndGuessResp(
+            qualities=utils.df2qualitys(predictions), levels=levels
+        )
 
 
 @dataclass
@@ -59,7 +71,7 @@ def keepalive(lease):
 
 
 def init_config():
-    host = environ.get("HOST", "127.0.0.1")
+    host = environ.get("HOST", "0.0.0.0")
     port = environ.get("PORT", 19000)
     custom_endpoint = environ.get("GRPC_CUSTOM_ENDPOINT")
     if not custom_endpoint:

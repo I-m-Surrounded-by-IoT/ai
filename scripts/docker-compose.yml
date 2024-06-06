@@ -13,3 +13,4 @@ services:
       - TZ=Asia/Shanghai
       - GRPC_CUSTOM_ENDPOINT=${GRPC_CUSTOM_ENDPOINT}
       - ETCD_ENDPOINT=${ETCD_ENDPOINT}
+      - HOST=0.0.0.0
