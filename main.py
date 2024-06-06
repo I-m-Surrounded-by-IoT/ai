@@ -86,16 +86,17 @@ if __name__ == "__main__":
     )
     server.add_insecure_port(f"{config['host']}:{config['port']}")
     server.start()
-    cli = etcd3.client(
-        host=config["etcd_host"],
-        port=config["etcd_port"],
-    )
+
     instance = ServiceInstance(
         id=uuid.uuid4().hex,
         name="water-quality",
         version="1.0.0",
         metadata={},
         endpoints=[config["custom_endpoint"]],
+    )
+    cli = etcd3.client(
+        host=config["etcd_host"],
+        port=config["etcd_port"],
     )
     lease = cli.lease(10)
     cli.put(
@@ -105,4 +106,6 @@ if __name__ == "__main__":
     )
     with futures.ThreadPoolExecutor(max_workers=1) as executor:
         executor.submit(keepalive, lease)
+
+    print(f"Server started at {config['custom_endpoint']}")
     server.wait_for_termination()

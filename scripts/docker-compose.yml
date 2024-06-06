@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  ai:
+    image: "zijiren/ai:latest"
+    container_name: ai
+    restart: unless-stopped
+    ports:
+      - "19000:19000"
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK=022
+      - TZ=Asia/Shanghai
+      - GRPC_CUSTOM_ENDPOINT=${GRPC_CUSTOM_ENDPOINT}
+      - ETCD_ENDPOINT=${ETCD_ENDPOINT}
