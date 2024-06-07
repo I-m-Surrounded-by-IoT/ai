@@ -7,6 +7,9 @@ def df2quality(data):
         timestamp=int(pd.to_datetime(data["date"]).timestamp() * 1000),
         temperature=data["temperature"],
         ph=data["ph"],
+        tsw=data["tsw"],
+        tds=data["tds"],
+        oxygen=data["oxygen"],
     )
 
 
@@ -21,6 +24,9 @@ def quality2obj(quality, withDate=False):
     obj = {
         "temperature": quality.temperature,
         "ph": quality.ph,
+        "tsw": quality.tsw,
+        "tds": quality.tds,
+        "oxygen": quality.oxygen,
     }
     if withDate:
         obj["date"] = pd.to_datetime(quality.timestamp, unit="ms")
@@ -28,9 +34,9 @@ def quality2obj(quality, withDate=False):
 
 
 def quality2df(quality, withDate=False):
-    columns = ["temperature", "ph"]
+    columns = ["temperature", "ph", "tsw", "tds", "oxygen"]
     if withDate:
-        columns = ["date", "temperature", "ph"]
+        columns = ["date", "temperature", "ph", "tsw", "tds", "oxygen"]
     df = pd.DataFrame(
         [quality2obj(quality, withDate=withDate)],
         columns=columns,
@@ -40,9 +46,9 @@ def quality2df(quality, withDate=False):
 
 def qualitys2df(data, withDate=False):
     arr = []
-    columns = ["temperature", "ph"]
+    columns = ["temperature", "ph", "tsw", "tds", "oxygen"]
     if withDate:
-        columns = ["date", "temperature", "ph"]
+        columns = ["date", "temperature", "ph", "tsw", "tds", "oxygen"]
     for quality in data:
         arr.append(quality2obj(quality, withDate=withDate))
     df = pd.DataFrame(

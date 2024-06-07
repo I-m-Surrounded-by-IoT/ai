@@ -9,6 +9,8 @@ import joblib
 # 加载数据
 data = pd.read_csv("water_quality.csv")
 
+data = data.drop(columns="level")
+
 # 保存 expected_columns
 with open("expected_columns.txt", "w") as f:
     for column in data.columns:

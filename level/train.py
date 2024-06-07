@@ -16,7 +16,9 @@ N_SPLITS = 5
 TEST_SIZE = 0.2
 
 # 加载数据
-data = pd.read_csv("water_quality_level.csv")
+data = pd.read_csv("water_quality.csv")
+
+data = data.drop(columns="date")
 
 # 分离特征和目标
 target = data["level"]
