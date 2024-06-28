@@ -4,7 +4,7 @@ joblib==1.4.2
 keras==3.3.3
 protobuf==3.20.3
 scikit_learn==1.5.0
-tensorflow==2.16.1
+tensorflow==2.16.2
 pandas
 grpcio
 grpcio-tools==1.48.2
